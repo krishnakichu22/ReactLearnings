@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import {useState} from 'react';
+import AnimalShow from './AnimalShow';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+//Get Random Animals function
+function getRandomAnimals(){
+    const animals = ['cat','dog','cow','gator','bird','horse'];
+    return animals[Math.floor(Math.random() * animals.length)]; 
+}
+
+//App function
+function App(){
+    
+    const [animals,setAnimals] = useState([]);  // State system 
+
+    const handleClick =() =>{
+        setAnimals([...animals,getRandomAnimals()])  // Events 
+    };
+
+    const renderAnimals = animals.map((animal,index) => {
+        return <AnimalShow type={animal} key={index} />; //Rendering the Image 
+    });
+    return (
+        <div className='bgcolor'>
+        <div className='app'>
+            <button onClick={handleClick}>
+                Add animal 🙂
+            </button>
+            <div className='animal-list'>{renderAnimals}</div>
+        </div>
     </div>
-  );
+    );
 }
 
 export default App;
+
+
+
+
+//Call Back inline in 9th Line using Arrow Function.
+// return <div>Show animal list here !</div>
+    // const handleClick = () =>
+    // {
+    //     console.log('Button was clicked!');
+    // }
+    //const [count,setCount] = useState(0) onClick={() => setCount(count+1)};
